@@ -8,22 +8,26 @@ type Token struct {
 }
 
 const (
-	EndStmt          TokenType = "EndStmt"         // For '!' repeated
-	EndStmtDbg                 = "EndStmtDbg"      // For '?' (debug info) repeated
-	Not                        = "Not"             // For ';' (false / Not)
-	Illegal                    = "[*]"             // For illegal tokens
-	EOF                        = "EOF"             // End of File
-	Fn                         = "Fn"              // For 'fn' keyword
-	VName                      = "var"             // Variable & function names
-	VConstConstConst           = "ConstConstConst" // Immutable data
-	VConstConst                = "ConstConst"      // Type can be reassigned
-	VConstVar                  = "ConstVar"        // Var can be edited but not reassigned
-	VVarConst                  = "VarConst"        // Var cannot be edited but reassigned
-	If                         = "If"              // If conditional
-	Else                       = "Else"            // Else conditional
-	True                       = "true"            // True bool
-	False                      = "false"           // False bool
-	Maybe                      = "maybe"           // Maybe bool
+	// Statement Endings
+	EndStmt    TokenType = "EndStmt"    // For '!' repeated
+	EndStmtDbg           = "EndStmtDbg" // For '?' (debug info) repeated
+
+	// Operators and Comparisons
+	Not    = "Not"    // For ';'
+	Assign = "Assign" // For '='
+
+	// Variable Types
+	Const = "Const"
+	Var   = "Var"
+
+	// Other Tokens
+	If      = "If"
+	Else    = "Else"
+	True    = "True"
+	False   = "False"
+	Maybe   = "Maybe"
+	EOF     = "EOF"
+	Illegal = "[*]"
 )
 
 func newToken(t TokenType, lit string) Token {
@@ -38,12 +42,18 @@ func inTable(tok string) bool {
 	return ok
 }
 func getItem(tok string) TokenType {
-	v := lookupTable[tok]
-	return v
+	return lookupTable[tok]
 }
 
 var lookupTable = map[string]TokenType{
-	"fn": Fn,
-	"!":  EndStmt,
-	";":  Not,
+	"if":    If,
+	"else":  Else,
+	"true":  True,
+	"false": False,
+	"maybe": Maybe,
+	"!":     EndStmt,
+	";":     Not,
+	"=":     Assign,
+	"const": Const,
+	"var":   Var,
 }
