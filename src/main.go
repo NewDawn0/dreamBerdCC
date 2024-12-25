@@ -3,16 +3,17 @@ package main
 import "fmt"
 
 func main() {
-	// fn print("Hello world")?
-	// if (;false) {
-	//   print("hello world")
-	// }
+	// var const 👍 = true?
+	// var var 1️⃣ = 1!
+	// name = "New"!
+	//  if (1 == 1) { print("Valid")! }
+	// const const name = "Luke"!
 	code := `
-    fn print("Hello world")!
-	  fn print("Hello world")!!!
-  `
-	l := NewLexer(code)
-	for tok := l.NextToken(); tok.Tok != EOF; tok = l.NextToken() {
-		fmt.Printf("Token: %v\n", tok)
+    var const 👍 = true?
+	`
+
+	lexer := NewLexer(code)
+	for tok := lexer.NextToken(); tok.Tok != EOF; tok = lexer.NextToken() {
+		fmt.Printf("Token: { Tok:%s, Lit:`%s` }\n", tok.Tok, tok.Lit)
 	}
 }
